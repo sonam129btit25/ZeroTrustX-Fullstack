@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------------------- design tokens */
+:root,
+[data-theme="dark"] {
+  --bg: 11 16 32;            /* #0B1020 */
+  --surface: 16 24 42;       /* #10182A */
+  --card: 21 31 51;          /* #151F33 */
+  --elevated: 27 39 64;      /* #1B2740 */
+  --line: 39 52 80;
+  --line-strong: 56 72 106;
+  --fg: 226 232 244;
+  --muted: 148 160 186;
+  --subtle: 104 117 146;
+  --accent: 108 143 245;     /* #6C8FF5 */
+  --accent-soft: 108 143 245;
+  --accent-fg: 255 255 255;
+  --lavender: 155 138 251;   /* #9B8AFB */
+  --cyan: 103 200 222;
+  --success: 74 196 148;
+  --warning: 232 178 84;
+  --danger: 236 104 116;
+  --info: 108 143 245;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: 244 246 251;
+  --surface: 236 240 247;
+  --card: 255 255 255;
+  --elevated: 248 250 253;
+  --line: 223 228 238;
+  --line-strong: 200 208 223;
+  --fg: 17 24 39;
+  --muted: 84 96 120;
+  --subtle: 125 136 160;
+  --accent: 79 112 230;
+  --accent-soft: 79 112 230;
+  --accent-fg: 255 255 255;
+  --lavender: 124 104 236;
+  --cyan: 30 150 180;
+  --success: 22 150 102;
+  --warning: 190 128 20;
+  --danger: 210 60 76;
+  --info: 79 112 230;
+  color-scheme: light;
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  body { @apply bg-base text-fg font-sans text-sm; font-feature-settings: "cv11", "ss01", "ss03"; }
+  ::selection { background: rgb(var(--accent) / 0.35); }
+  * { @apply border-line; }
+  :focus-visible { outline: none; box-shadow: 0 0 0 2px rgb(var(--bg)), 0 0 0 4px rgb(var(--accent) / 0.6); border-radius: 6px; }
+  h1, h2, h3 { letter-spacing: -0.015em; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--line-strong) / 0.7); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+@layer components {
+  .card { @apply rounded-xl border border-line/80 bg-card shadow-card; }
+  .card-elevated { @apply rounded-xl border border-line bg-elevated shadow-pop; }
+  .label { @apply text-2xs font-medium uppercase tracking-[0.08em] text-subtle; }
+  .num { font-variant-numeric: tabular-nums; }
+  .hairline { background: linear-gradient(90deg, transparent, rgb(var(--line-strong) / 0.8), transparent); height: 1px; }
+  .text-gradient { background: linear-gradient(100deg, rgb(var(--fg)) 10%, rgb(var(--accent)) 60%, rgb(var(--lavender)) 95%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bg-grid {
+    background-image: linear-gradient(rgb(var(--line) / 0.35) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--line) / 0.35) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
+
+/* Fluid cursor: only when enabled (pointer: fine and no reduced motion) */
+html.ztx-cursor-on, html.ztx-cursor-on * { cursor: none !important; }
+html.ztx-cursor-on input, html.ztx-cursor-on textarea, html.ztx-cursor-on [contenteditable="true"], html.ztx-cursor-on select { cursor: text !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
